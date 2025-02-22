@@ -39,55 +39,68 @@ const compareFiles = () => {
         })
         .filter((item) => item !== null); // 移除庫存相同的項目
 };
-
-// 當按下 Enter 鍵時觸發比對
-const handleKeydown = (event) => {
-    if (event.key === 'Enter') {
-        compareFiles();
-    }
-};
 </script>
 
 <template>
-    <div class="container mx-auto p-4">
-        <div class="my-3">一口氣看幾筆全部複製起來直接丟底下框框</div>
-        <div class="flex my-5">
+    <div class="container mx-auto px-8 bg-neutral-50 dark:bg-gray-800 rounded-lg shadow-xl max-w-6xl">
+        <div class="flex flex-col items-center my-8">
+            <h1 class="text-3xl font-semibold text-gray-800 dark:text-white mb-4">庫存比對</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300">貼上您的 Excel 內容來比對庫存</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
             <textarea
                 v-model="file1"
                 placeholder="貼上第一份 Excel 內容"
-                class="w-full p-2 border rounded mb-2 mr-5"
-                rows="10"
+                class="focus:outline-none w-full p-5 border rounded-lg shadow-lg mb-4 md:mr-4 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300 text-sm text-gray-600 uppercase dark:bg-gray-700 dark:text-white transition-all ease-in-out"
+                rows="6"
+                @keydown="handleKeydown"
             ></textarea>
             <textarea
                 v-model="file2"
                 placeholder="貼上第二份 Excel 內容"
-                class="w-full p-2 border rounded mb-2"
+                class="focus:outline-none w-full p-5 border rounded-lg shadow-lg mb-4 md:mr-4 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300 text-sm text-gray-600 uppercase dark:bg-gray-700 dark:text-white transition-all ease-in-out"
+                rows="6"
+                @keydown="handleKeydown"
             ></textarea>
         </div>
-        <button @click="compareFiles" class="bg-blue-600 text-white p-2 rounded">比對</button>
+
+        <button
+            @click="compareFiles"
+            type="button"
+            class="w-full md:w-auto text-white bg-gradient-to-br from-blue-500 to-teal-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-lg px-6 py-3 mb-6"
+        >
+            開始比對
+        </button>
 
         <div v-if="differences.length" class="mt-4">
-            <h3 class="text-lg font-semibold mb-2">庫存不同的項目</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border border-gray-200">
-                    <thead>
-                        <tr class="bg-gray-200">
-                            <th class="border p-2">品名</th>
-                            <th class="border p-2">第一份庫存</th>
-                            <th class="border p-2">第二份庫存</th>
+            <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">庫存不同的項目</h3>
+
+            <div class="overflow-x-auto rounded-lg shadow-xl bg-white dark:bg-gray-700">
+                <table class="min-w-full text-sm text-gray-700 dark:text-gray-300">
+                    <thead class="text-sm text-gray-600 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+                        <tr>
+                            <th class="border-b py-3 px-4 text-left">品名</th>
+                            <th class="border-b py-3 px-4 text-left">第一份庫存</th>
+                            <th class="border-b py-3 px-4 text-left">第二份庫存</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in differences" :key="item.name" class="text-center">
-                            <td class="border p-2">{{ item.name }}</td>
-                            <td class="border p-2">{{ item.stock1 }}</td>
-                            <td class="border p-2">{{ item.stock2 }}</td>
+                        <tr
+                            v-for="item in differences"
+                            :key="item.name"
+                            class="dark:bg-gray-800 dark:border-gray-700 hover:bg-blue-300 dark:hover:bg-gray-600"
+                        >
+                            <td class="border-b py-3 px-4 text-gray-700 dark:text-white">{{ item.name }}</td>
+                            <td class="border-b py-3 px-4 text-gray-700 dark:text-white">{{ item.stock1 }}</td>
+                            <td class="border-b py-3 px-4 text-gray-700 dark:text-white">{{ item.stock2 }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div v-else>沒有不同的項目</div>
+        <SearchUnit />
     </div>
-    <SearchUnit />
 </template>
+
+<style scoped></style>

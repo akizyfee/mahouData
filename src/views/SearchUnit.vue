@@ -2771,7 +2771,7 @@ const filteredProducts = computed(() => {
 </script>
 
 <template>
-    <div class="p-4 max-w-4xl mx-auto">
+    <div class="max-full mx-auto mt-20">
         <input
             v-model="searchQuery"
             type="text"
@@ -2779,9 +2779,9 @@ const filteredProducts = computed(() => {
             class="w-full p-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300"
         />
 
-        <p v-if="!searchQuery" class="mt-4 text-gray-500">請搜尋品項或ID</p>
-        <table v-else-if="filteredProducts.length" class="mt-4 w-full table-auto border-collapse">
-            <thead>
+        <p v-if="!searchQuery" class="mt-4 text-gray-500">搜尋品名或ID</p>
+        <table v-else-if="filteredProducts.length" class="min-w-full text-sm text-gray-700 dark:text-gray-300">
+            <thead class="text-sm text-gray-600 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
                 <tr>
                     <th class="p-2 border-b text-left">產品名稱</th>
                     <th class="p-2 border-b text-left">產品ID</th>
