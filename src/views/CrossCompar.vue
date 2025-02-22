@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 
+import SearchUnit from '@/components/SearchUnit.vue';
+
 const file1 = ref('');
 const file2 = ref('');
 const differences = ref([]);
@@ -9,7 +11,7 @@ const parseExcelText = (text) => {
     const rows = text.trim().split('\n');
     const data = {};
     rows.forEach((row) => {
-        const columns = row.split('\t');
+        const columns = row.split(/\s{2,}|\t/); // 支援多個空格和tab分隔
         if (columns.length >= 6) {
             const name = columns[3].trim();
             const stock = parseInt(columns[5].trim(), 10) || 0;
@@ -29,17 +31,39 @@ const compareFiles = () => {
         .map((name) => {
             const stock1 = data1[name] ?? null;
             const stock2 = data2[name] ?? null;
-            return stock1 !== stock2 ? { name, stock1, stock2 } : null;
+            // 只將庫存不相等的項目加入 differences
+            if (stock1 !== stock2) {
+                return { name, stock1: stock1 ?? '無', stock2: stock2 ?? '無' };
+            }
+            return null;
         })
-        .filter((item) => item !== null);
+        .filter((item) => item !== null); // 移除庫存相同的項目
+};
+
+// 當按下 Enter 鍵時觸發比對
+const handleKeydown = (event) => {
+    if (event.key === 'Enter') {
+        compareFiles();
+    }
 };
 </script>
 
 <template>
     <div class="container mx-auto p-4">
-        <h2 class="text-xl font-bold mb-4">比對 Excel 庫存</h2>
-        <textarea v-model="file1" placeholder="貼上第一份 Excel 內容" class="w-full p-2 border rounded mb-2"></textarea>
-        <textarea v-model="file2" placeholder="貼上第二份 Excel 內容" class="w-full p-2 border rounded mb-2"></textarea>
+        <div class="my-3">一口氣看幾筆全部複製起來直接丟底下框框</div>
+        <div class="flex my-5">
+            <textarea
+                v-model="file1"
+                placeholder="貼上第一份 Excel 內容"
+                class="w-full p-2 border rounded mb-2 mr-5"
+                rows="10"
+            ></textarea>
+            <textarea
+                v-model="file2"
+                placeholder="貼上第二份 Excel 內容"
+                class="w-full p-2 border rounded mb-2"
+            ></textarea>
+        </div>
         <button @click="compareFiles" class="bg-blue-600 text-white p-2 rounded">比對</button>
 
         <div v-if="differences.length" class="mt-4">
@@ -56,12 +80,14 @@ const compareFiles = () => {
                     <tbody>
                         <tr v-for="item in differences" :key="item.name" class="text-center">
                             <td class="border p-2">{{ item.name }}</td>
-                            <td class="border p-2">{{ item.stock1 ?? '無' }}</td>
-                            <td class="border p-2">{{ item.stock2 ?? '無' }}</td>
+                            <td class="border p-2">{{ item.stock1 }}</td>
+                            <td class="border p-2">{{ item.stock2 }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <div v-else>沒有不同的項目</div>
     </div>
+    <SearchUnit />
 </template>

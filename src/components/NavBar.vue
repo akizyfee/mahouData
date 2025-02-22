@@ -7,8 +7,8 @@ const isOpen = ref(false);
 <template>
     <nav class="p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="text-xl font-bold">拒絕大腦過勞</div>
-            <button @click="isOpen = !isOpen" class="md:hidden">
+            <!-- <div class="text-xl font-bold">拒絕大腦過勞</div> -->
+            <!-- <button @click="isOpen = !isOpen" class="md:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -28,9 +28,9 @@ const isOpen = ref(false);
                         單位搜尋
                     </li>
                 </router-link>
-            </ul>
+            </ul> -->
         </div>
-        <div v-if="isOpen" class="md:hidden mt-2 p-2 rounded-lg">
+        <!-- <div v-if="isOpen" class="md:hidden mt-2 p-2 rounded-lg">
             <ul class="space-y-2">
                 <router-link to="/crossCompar" class="hover:underline">
                     <li
@@ -47,6 +47,6 @@ const isOpen = ref(false);
                     </li>
                 </router-link>
             </ul>
-        </div>
+        </div> -->
     </nav>
 </template>
