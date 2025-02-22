@@ -2778,33 +2778,34 @@ const filteredProducts = computed(() => {
             placeholder="..."
             class="border-gray-400 invalid:border-pink-500 focus:border-sky-500 focus:outline focus:outline-sky-500 focus:invalid:border-pink-500 focus:invalid:outline-pink-500 disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none dark:disabled:border-gray-700 dark:disabled:bg-gray-800/20 ... w-full p-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300"
         />
-
-        <!-- <p v-if="!searchQuery" class="mt-4 text-gray-500">搜尋品名或ID</p> -->
-        <table v-if="filteredProducts.length" class="min-w-full text-sm text-gray-700 dark:text-gray-300">
-            <thead class="text-sm text-gray-600 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
-                <tr>
-                    <th class="p-2 border-b text-left">產品名稱</th>
-                    <th class="p-2 border-b text-left">產品ID</th>
-                    <th class="p-2 border-b text-left">價格</th>
-                    <th class="p-2 border-b text-left">庫存量</th>
-                    <th class="p-2 border-b text-left">單位</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    class="hover:bg-blue-300"
-                    v-for="(product, index) in filteredProducts"
-                    :key="product.id + '-' + index"
-                >
-                    <td class="p-2 border-b">{{ product.name }}</td>
-                    <td class="p-2 border-b">{{ product.id }}</td>
-                    <td class="p-2 border-b">{{ product.price }}</td>
-                    <td class="p-2 border-b">{{ product.stock }}</td>
-                    <td class="p-2 border-b">{{ product.unit }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <p v-else class="mt-4 text-gray-500">沒有對應資料</p>
+        <div class="overflow-x-auto">
+            <!-- <p v-if="!searchQuery" class="mt-4 text-gray-500">搜尋品名或ID</p> -->
+            <table v-if="filteredProducts.length" class="min-w-full text-sm text-gray-700 dark:text-gray-300">
+                <thead class="text-sm text-gray-600 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+                    <tr>
+                        <th class="p-2 border-b text-left">產品名稱</th>
+                        <th class="p-2 border-b text-left">產品ID</th>
+                        <th class="p-2 border-b text-left">價格</th>
+                        <th class="p-2 border-b text-left">庫存量</th>
+                        <th class="p-2 border-b text-left">單位</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        class="hover:bg-blue-300"
+                        v-for="(product, index) in filteredProducts"
+                        :key="product.id + '-' + index"
+                    >
+                        <td class="p-2 border-b">{{ product.name }}</td>
+                        <td class="p-2 border-b">{{ product.id }}</td>
+                        <td class="p-2 border-b">{{ product.price }}</td>
+                        <td class="p-2 border-b">{{ product.stock }}</td>
+                        <td class="p-2 border-b">{{ product.unit }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p v-else class="mt-4 text-gray-500">沒有對應資料</p>
+        </div>
     </div>
 </template>
 
