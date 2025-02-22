@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 
-const isOpen = ref(false);
 const file1 = ref('');
 const file2 = ref('');
 const differences = ref([]);
@@ -26,34 +25,25 @@ const compareFiles = () => {
     differences.value = [];
 
     const allNames = new Set([...Object.keys(data1), ...Object.keys(data2)]);
-    allNames.forEach((name) => {
-        const stock1 = data1[name] ?? null;
-        const stock2 = data2[name] ?? null;
-        if (stock1 !== stock2) {
-            differences.value.push({ name, stock1, stock2 });
-        }
-    });
+    differences.value = Array.from(allNames)
+        .map((name) => {
+            const stock1 = data1[name] ?? null;
+            const stock2 = data2[name] ?? null;
+            return stock1 !== stock2 ? { name, stock1, stock2 } : null;
+        })
+        .filter((item) => item !== null);
 };
 </script>
 
 <template>
     <div class="container mx-auto p-4">
         <h2 class="text-xl font-bold mb-4">比對 Excel 庫存</h2>
-        <div>直接把 Excel 上的東西摳下來貼上去就好</div>
-        <div>阿不過自己記得是 POS 跟 SAP 是摳在哪一個</div>
-        <div class="flex my-5">
-            <textarea
-                v-model="file1"
-                placeholder="貼上第一份 Excel 內容"
-                class="w-full p-2 border rounded mr-5"
-                rows="10"
-            ></textarea>
-            <textarea v-model="file2" placeholder="貼上第二份 Excel 內容" class="w-full p-2 border rounded"></textarea>
-        </div>
+        <textarea v-model="file1" placeholder="貼上第一份 Excel 內容" class="w-full p-2 border rounded mb-2"></textarea>
+        <textarea v-model="file2" placeholder="貼上第二份 Excel 內容" class="w-full p-2 border rounded mb-2"></textarea>
         <button @click="compareFiles" class="bg-blue-600 text-white p-2 rounded">比對</button>
 
         <div v-if="differences.length" class="mt-4">
-            <h3 class="text-lg font-semibold mb-2">庫存不同 & 只有其中一個有的項目</h3>
+            <h3 class="text-lg font-semibold mb-2">庫存不同的項目</h3>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-200">
                     <thead>
@@ -72,9 +62,6 @@ const compareFiles = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div v-else class="mt-4">
-            <div>沒有不同的!~</div>
         </div>
     </div>
 </template>
