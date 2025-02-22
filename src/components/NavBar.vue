@@ -14,30 +14,38 @@ const isOpen = ref(false);
                 </svg>
             </button>
             <ul class="hidden md:flex space-x-4">
-                <li
-                    class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-                >
-                    <router-link to="/crossCompar" class="hover:underline">資料比對</router-link>
-                </li>
-                <li
-                    class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-                >
-                    <router-link to="/searchUnit" class="hover:underline">單位搜尋</router-link>
-                </li>
+                <router-link to="/crossCompar" class="hover:underline">
+                    <li
+                        class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                    >
+                        資料比對
+                    </li>
+                </router-link>
+                <router-link to="/searchUnit" class="hover:underline">
+                    <li
+                        class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                    >
+                        單位搜尋
+                    </li>
+                </router-link>
             </ul>
         </div>
         <div v-if="isOpen" class="md:hidden mt-2 p-2 rounded-lg">
             <ul class="space-y-2">
-                <li
-                    class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-                >
-                    <router-link to="/crossCompar" class="hover:underline">資料比對</router-link>
-                </li>
-                <li
-                    class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-                >
-                    <router-link to="/searchUnit" class="hover:underline">單位搜尋</router-link>
-                </li>
+                <router-link to="/crossCompar" class="hover:underline">
+                    <li
+                        class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                    >
+                        資料比對
+                    </li>
+                </router-link>
+                <router-link to="/searchUnit" class="hover:underline">
+                    <li
+                        class="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                    >
+                        單位搜尋
+                    </li>
+                </router-link>
             </ul>
         </div>
     </nav>
