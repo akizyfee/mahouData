@@ -42,7 +42,7 @@ const compareFiles = () => {
 </script>
 
 <template>
-    <div class="container mx-auto px-8 bg-neutral-50 dark:bg-gray-800 rounded-lg shadow-xl max-w-6xl">
+    <div class="container mx-auto px-8 rounded-lg shadow-xl max-w-6xl">
         <div class="flex flex-col items-center my-8">
             <h1 class="text-3xl font-semibold text-gray-800 dark:text-white mb-4">庫存比對</h1>
             <p class="text-lg text-gray-600 dark:text-gray-300">貼上您的 Excel 內容來比對庫存</p>
