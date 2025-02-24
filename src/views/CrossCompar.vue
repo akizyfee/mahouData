@@ -68,7 +68,7 @@ const compareFiles = () => {
         <button
             @click="compareFiles"
             type="button"
-            class="w-full md:w-auto text-white bg-gradient-to-br from-blue-500 to-teal-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-lg px-6 py-3 mb-6"
+            class="w-full md:w-auto font-medium rounded-lg text-lg px-6 py-3 mb-6"
         >
             開始比對
         </button>
