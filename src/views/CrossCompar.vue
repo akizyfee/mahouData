@@ -14,16 +14,15 @@ const parseExcelText = (text) => {
     rows.forEach((row) => {
         const columns = row.split(/\t/); // 只用 Tab 分隔，避免解析錯誤
 
-        if (columns.length >= 5) {
+        if (columns.length >= 4) {
             // 確保至少有 5 個欄位
             const warehouse = columns[0].trim();
             const productId = columns[1].trim();
             const name = columns[2].trim();
             const stock = parseInt(columns[3].trim(), 10) || 0;
-            const unit = columns[4].trim();
 
             const key = `${productId}`; // 以品號作為唯一 key
-            data[key] = { warehouse, productId, name, stock, unit };
+            data[key] = { warehouse, productId, name, stock };
         }
     });
 
@@ -52,7 +51,6 @@ const compareFiles = () => {
                     name: item1.name || item2.name || key.split('-')[1],
                     stock1,
                     stock2,
-                    unit: item1.unit || item2.unit || '未知',
                 };
             }
             return null;
@@ -116,7 +114,6 @@ const removeFiles = () => {
                             <th class="border-b py-3 px-4 text-left">品名</th>
                             <th class="border-b py-3 px-4 text-left">第一份庫存</th>
                             <th class="border-b py-3 px-4 text-left">第二份庫存</th>
-                            <th class="border-b py-3 px-4 text-left">單位</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -130,7 +127,6 @@ const removeFiles = () => {
                             <td class="border-b py-3 px-4 text-gray-700 dark:text-white">{{ item.name }}</td>
                             <td class="border-b py-3 px-4 text-gray-700 dark:text-white">{{ item.stock1 }}</td>
                             <td class="border-b py-3 px-4 text-gray-700 dark:text-white">{{ item.stock2 }}</td>
-                            <td class="border-b py-3 px-4 text-gray-700 dark:text-white">{{ item.unit }}</td>
                         </tr>
                     </tbody>
                 </table>
