@@ -6,16 +6,16 @@
                 <tr class="bg-gray-200">
                     <th class="border p-2">物料號</th>
                     <th class="border p-2">名稱</th>
-                    <th class="border p-2">單位</th>
-                    <th class="border p-2">一箱數量</th>
+                    <th class="border p-2">倉位</th>
+                    <th class="border p-2">出廠單位</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in filteredData" :key="item.id" class="border">
+                <tr v-for="(item, index) in filteredData" :key="item.id + '-' + index" class="border">
                     <td class="border p-2">{{ item.id }}</td>
                     <td class="border p-2">{{ item.name }}</td>
-                    <td class="border p-2">{{ item.unit }}</td>
-                    <td class="border p-2">{{ item.quantity }}</td>
+                    <td class="border p-2">{{ item.SLoc }}</td>
+                    <td class="border p-2">{{ item.addresspt }}</td>
                 </tr>
             </tbody>
         </table>
@@ -32,8 +32,8 @@ const data = ref([
         name: '1.8公升玉泉花雕酒(瓷)',
         pastoryttl: '成品倉',
         SLoc: '5100',
-        BUn: 'JA',
         dontkonw: 460,
+        BUn: '未知',
         addresspt: '台中',
     },
     {
@@ -12119,23 +12119,23 @@ const data = ref([
         dontkonw: 1752,
         addresspt: '屏東',
     },
-    {
-        addresspt: 'id',
-        '(全部)': 'name',
-        Column3: '計數 - pastoryttl',
-    },
-    {
-        addresspt: '(空白)',
-        '(全部)': '(空白)',
-    },
 ]); // 產品資料
 
 const filteredData = computed(() => {
-    return data.value.filter(
-        (item) =>
-            searchQuery.value === '' ||
-            (item.id.startsWith(searchQuery.value) && item.id.includes(searchQuery.value)) ||
-            item.name.includes(searchQuery.value)
-    );
+    const query = searchQuery.value.trim().toLowerCase();
+    if (!query) return data.value; // 如果沒有輸入，顯示全部資料
+
+    return data.value.filter((item) => {
+        const idNormalized = item.id.toLowerCase().replace(/-/g, ''); // 移除 `-`
+        const queryNormalized = query.replace(/-/g, ''); // 搜尋字串也移除 `-`
+
+        // 確保 `id` 的順序完全匹配（substring 而非 includes）
+        const idMatches = idNormalized.indexOf(queryNormalized) !== -1;
+
+        // 確保 `name` 也能匹配
+        const nameMatches = item.name.toLowerCase().includes(query);
+
+        return idMatches || nameMatches;
+    });
 });
 </script>
