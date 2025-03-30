@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import SearchUnit from '@/views/SearchUnit.vue'
 import CrossCompar from '@/views/CrossCompar.vue'
+import Address from '@/views/Address.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
       path: '/searchUnit',
       name: 'searchUnit',
       component: SearchUnit,
+    },
+    {
+      path: '/address',
+      name: 'address',
+      component: Address,
     },
     // {
     //   path: '/SearchUnit',
